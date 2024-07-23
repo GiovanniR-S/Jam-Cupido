@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 
 public class PlayerMoved : MonoBehaviour
@@ -8,7 +9,11 @@ public class PlayerMoved : MonoBehaviour
     [SerializeField]
     int life;
 
+    [SerializeField]
+    public GameObject arrowPrefab;
+
     private Vector2 _movement;
+    private Transform tran;
     private Rigidbody2D rb;
     private SpriteRenderer spr;
 
@@ -18,6 +23,7 @@ public class PlayerMoved : MonoBehaviour
         spd = 5.0f;
         life = 10;
 
+        tran = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
     }
@@ -26,9 +32,27 @@ public class PlayerMoved : MonoBehaviour
     void Update()
     {
         _movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        {
+            int bulletX = spr.flipX ? -1 : 1;
+
+            if(GameObject.FindGameObjectsWithTag("arrow").Length < 1)
+            {
+                GameObject arrowInstance = Instantiate(arrowPrefab, new Vector2(tran.position.x + (0.6f * bulletX), tran.position.y), Quaternion.identity);
+
+                //arrowInstance.GetComponent<Rigidbody2D>().MovePosition(new Vector2 (bulletX * 20.0f * Time.deltaTime, 0f));
+
+            } else if(GameObject.FindGameObjectsWithTag("arrow").Length >= 1)
+            {
+                GameObject existingArrow = GameObject.FindWithTag("arrow");
+
+                //existingArrow.GetComponent<Transform>().Translate(new Vector2(bulletX * 20.0f * Time.deltaTime, 0f));
+            }
+        }
     }
 
-    private void FixedUpdate ()
+    private void FixedUpdate()
     {
         move(_movement);
     }
