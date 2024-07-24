@@ -41,14 +41,7 @@ public class PlayerMoved : MonoBehaviour
             {
                 GameObject arrowInstance = Instantiate(arrowPrefab, new Vector2(tran.position.x + (0.6f * bulletX), tran.position.y), Quaternion.identity);
 
-                //arrowInstance.GetComponent<Rigidbody2D>().MovePosition(new Vector2 (bulletX * 20.0f * Time.deltaTime, 0f));
-
-            } else if(GameObject.FindGameObjectsWithTag("arrow").Length >= 1)
-            {
-                GameObject existingArrow = GameObject.FindWithTag("arrow");
-
-                //existingArrow.GetComponent<Transform>().Translate(new Vector2(bulletX * 20.0f * Time.deltaTime, 0f));
-            }
+            } 
         }
     }
 
