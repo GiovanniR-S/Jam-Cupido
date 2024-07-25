@@ -4,40 +4,44 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Arrow:MonoBehaviour
+namespace Cupid 
 {
-    [SerializeField]
-    public float spd = 6.5f;
-
-    private GameObject arrow;
-
-    private Collider2D col;
-    private Rigidbody2D rb;
-
-    // Start is called before the first frame update
-    void Start ()
+    public class Arrow : MonoBehaviour
     {
-        col = GetComponent<Collider2D>();
+        [SerializeField]
+        public float spd = 6.5f;
 
-        rb = GetComponent<Rigidbody2D>();
+        private GameObject arrow;
 
-        arrow = GameObject.FindGameObjectWithTag("arrow");
+        private Collider2D col;
+        private Rigidbody2D rb;
 
-    }
 
-    // Update is called once per frame
-    void Update ()
-    {
-        int bulletX = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>().flipX ? -1 : 1;
+        void Start()
+        {
+            col = GetComponent<Collider2D>();
 
-        transform.Translate(new Vector2(bulletX * 20.0f * Time.deltaTime, 0f));
+            rb = GetComponent<Rigidbody2D>();
 
-        GameObject.Destroy(arrow, 0.6f);
+            arrow = GameObject.FindGameObjectWithTag("arrow");
 
-    }
+        }
 
-    public void OnCollisionEnter2D (Collision2D collision)
-    {
-        
+
+        void Update()
+        {
+
+            int bulletX = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>().flipX ? -1 : 1;
+
+            transform.Translate(new Vector2(bulletX * 20.0f * Time.deltaTime, 0f));
+
+            GameObject.Destroy(arrow, 0.6f);
+
+        }
+
+        public void OnCollisionEnter2D(Collision2D collision)
+        {
+
+        }
     }
 }
